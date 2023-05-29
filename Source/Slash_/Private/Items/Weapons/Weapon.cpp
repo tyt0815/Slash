@@ -87,7 +87,6 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
     if (BoxHit.GetActor())
     {
         if (ActorIsSameType(BoxHit.GetActor())) { return; }
-
         UGameplayStatics::ApplyDamage(
             BoxHit.GetActor(),
             Damage,
@@ -121,6 +120,7 @@ void AWeapon::BoxTrace(FHitResult& BoxHit)
 
     TArray<AActor*> ActorsToIgnore;
     ActorsToIgnore.Add(this);       // BoxTrace에서 this(무기)는 무시한다.
+    ActorsToIgnore.Add(GetOwner());
 
     for (AActor* Actor : IgnoreActors)
     {
