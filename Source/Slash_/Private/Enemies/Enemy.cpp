@@ -69,7 +69,8 @@ void AEnemy::Destroyed()
 void AEnemy::GetHit_Implementation(const FVector& ImpactPoint)
 {
 	Super::GetHit_Implementation(ImpactPoint);
-	ShowHealthBar();
+	if(isAlive()){ ShowHealthBar(); }
+	ClearPatrolTimer();
 }
 
 void AEnemy::BeginPlay()
@@ -91,6 +92,7 @@ void AEnemy::Die()
 	DisableCapsule();
 	SetLifeSpan(DeathLifeSpan);
 	GetCharacterMovement()->bOrientRotationToMovement = false; // 시체가 회전하는 문제가 있었음
+	SetWeaponCollisionEnable(ECollisionEnabled::NoCollision);
 }
 
 void AEnemy::Attack()
