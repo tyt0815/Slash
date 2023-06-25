@@ -13,6 +13,7 @@ class UGroomComponent;
 class AItem;
 class UAnimMontage;
 class USlashOverlay;
+class ATreasure;
 
 
 UCLASS()
@@ -28,6 +29,7 @@ public:
 	virtual void GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter) override;
 	virtual void SetOverlappingItem(AItem* Item) override;
 	virtual void AddSouls(ASoul* Soul) override;
+	virtual void AddGold(ATreasure* Treasure) override;
 protected:
 	/* Callbacks for inputs	*/
 	virtual void BeginPlay() override;
