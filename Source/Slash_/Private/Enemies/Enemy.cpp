@@ -110,8 +110,10 @@ void AEnemy::Die()
 
 void AEnemy::Attack()
 {
-	EnemyState = EEnemyState::EES_Engage;
 	Super::Attack();
+	if (CombatTarget == nullptr) { return; }
+
+	EnemyState = EEnemyState::EES_Engage;
 	PlayAttackMontage();
 }
 
