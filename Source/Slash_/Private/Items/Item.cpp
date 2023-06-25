@@ -5,7 +5,7 @@
 #include "DrawDebugHelpers.h"
 #include "Slash_/DebugMacros.h"
 #include "Components/SphereComponent.h"
-#include "Characters/SlashCharacter.h"
+#include "Interfaces/PickupInterface.h"
 #include "NiagaraComponent.h"
 
 
@@ -60,18 +60,18 @@ void AItem::Tick(float DeltaTime)
 
 void AItem::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	ASlashCharacter* SlashCharacter = Cast<ASlashCharacter>(OtherActor);
-	if(SlashCharacter)
+	IPickupInterface* PickupInterface = Cast<IPickupInterface>(OtherActor);
+	if(PickupInterface)
 	{
-		SlashCharacter->SetOverlappingItem(this);
+		PickupInterface->SetOverlappingItem(this);
 	}
 }
 
 void AItem::EndSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	ASlashCharacter* SlashCharacter = Cast<ASlashCharacter>(OtherActor);
-	if(SlashCharacter)
+	IPickupInterface* PickupInterface = Cast<IPickupInterface>(OtherActor);
+	if(PickupInterface)
 	{
-		SlashCharacter->SetOverlappingItem(nullptr);
+		PickupInterface->SetOverlappingItem(nullptr);
 	}
 }
