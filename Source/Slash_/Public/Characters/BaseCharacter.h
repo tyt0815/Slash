@@ -33,11 +33,15 @@ protected:
 	void DisableCapsule();
 	virtual bool CanAttack();
 	bool isAlive();
+	void DisableMeshCollision();
+
+	/* Montage */
 	void PlayHitReactMontage(const FName& SectionName);
 	virtual int32 PlayAttackMontage();
 	virtual int32 PlayDeathMontage();
+	virtual void PlayDodgeMontage();
 	void StopAttackMontage();
-	void DisableMeshCollision();
+
 
 	UFUNCTION(BlueprintCallable)
 	FVector GetTranslationWarpTarget();
@@ -47,6 +51,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void AttackEnd();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void DodgeEnd();
 
 	UFUNCTION(BlueprintCallable)
 	void SetWeaponCollisionEnable(ECollisionEnabled::Type CollisionEnabled);
@@ -71,6 +78,7 @@ private:
 	void PlayMontageSection(UAnimMontage* Montage, const FName& SectionName);
 	int32 PlayRandomMontageSection(UAnimMontage* Montage, const TArray<FName>& SectionNames);
 
+
 	UPROPERTY(EditAnywhere, Category = Combat)
 	USoundBase* HitSound;
 	UPROPERTY(EditAnywhere, Category = Combat)
@@ -84,6 +92,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	UAnimMontage* DeathMontage;
+
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	UAnimMontage* DodgeMontage;
 
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TArray<FName> AttackMontageSections;
