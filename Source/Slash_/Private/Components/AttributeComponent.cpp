@@ -5,10 +5,7 @@
 
 UAttributeComponent::UAttributeComponent()
 {
-	PrimaryComponentTick.bCanEverTick = true;
-
-	MaxHealth = 100;
-	Health = MaxHealth;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UAttributeComponent::BeginPlay()
@@ -41,10 +38,27 @@ void UAttributeComponent::AddSouls(int32 NumberOfSouls)
 	Souls += NumberOfSouls;
 }
 
+void UAttributeComponent::UseStamina(float StaminaCost)
+{
+	Stamina = FMath::Clamp(Stamina - StaminaCost, 0.f, MaxStamina);
+}
+
+float UAttributeComponent::GetStaminaPercent()
+{
+	return Stamina / MaxStamina;
+}
+
 
 // Called every frame
 void UAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	RegenStamina(DeltaTime);
+}
+
+void UAttributeComponent::RegenStamina(float DeltaTime)
+{
+	Stamina = FMath::Clamp(Stamina + StaminaRegenRate * DeltaTime, 0, MaxStamina);
 }
 
