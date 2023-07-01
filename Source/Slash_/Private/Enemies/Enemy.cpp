@@ -127,7 +127,11 @@ void AEnemy::SpawnSoul()
 void AEnemy::Attack()
 {
 	Super::Attack();
-	if (CombatTarget == nullptr) { return; }
+	if (CombatTarget == nullptr) 
+	{
+		ClearAttackTimer();
+		return;
+	}
 
 	EnemyState = EEnemyState::EES_Engage;
 	PlayAttackMontage();
@@ -303,7 +307,7 @@ void AEnemy::MoveToTarget(AActor* Target)
 	if (EnemyController == nullptr || Target == nullptr) return;
 	FAIMoveRequest MoveRequest;
 	MoveRequest.SetGoalActor(Target);
-	MoveRequest.SetAcceptanceRadius(15.f);
+	MoveRequest.SetAcceptanceRadius(AcceptanceRadius);
 	EnemyController->MoveTo(MoveRequest);
 
 }
@@ -347,7 +351,8 @@ void AEnemy::PawnSeen(APawn* SeenPawn)
 		EnemyState != EEnemyState::EES_Dead &&
 		EnemyState != EEnemyState::EES_Chasing &&
 		EnemyState < EEnemyState::EES_Attacking &&
-		SeenPawn->ActorHasTag(FName("EngageableTarget"));
+		SeenPawn->ActorHasTag(FName("EngageableTarget")) &&
+		!SeenPawn->ActorHasTag(FName("Dead"));
 
 	if (bShouldChaseTarget)
 	{
