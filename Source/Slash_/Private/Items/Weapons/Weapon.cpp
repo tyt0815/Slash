@@ -81,14 +81,15 @@ void AWeapon::AttachMeshToSocket(USceneComponent* InParent, FName InSocketName)
 void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (ActorIsSameType(OtherActor)) { return; }
-    UE_LOG(LogTemp, Warning, TEXT("!!"));
 
     FHitResult BoxHit;
     BoxTrace(BoxHit);
-
     if (BoxHit.GetActor())
     {
-        if (ActorIsSameType(BoxHit.GetActor())) { return; }
+        if (ActorIsSameType(BoxHit.GetActor())) 
+        {
+            return;
+        }
         UGameplayStatics::ApplyDamage(
             BoxHit.GetActor(),
             Damage,
@@ -108,6 +109,7 @@ bool AWeapon::ActorIsSameType(AActor* OtherActor)
 
 void AWeapon::ExecuteGetHit(FHitResult& BoxHit)
 {
+    
     IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
     if (HitInterface)
     {
@@ -143,4 +145,5 @@ void AWeapon::BoxTrace(FHitResult& BoxHit)
         true
     );
     IgnoreActors.AddUnique(BoxHit.GetActor());
+    // UE_LOG(LogTemp, Warning, TEXT(BoxHit.GetActor()->GetName()))
 }

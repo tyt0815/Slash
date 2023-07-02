@@ -85,6 +85,10 @@ void AEnemy::GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter)
 	SetWeaponCollisionEnable(ECollisionEnabled::NoCollision);
 
 	StopAttackMontage();
+	if (isInsideAttackRadius())
+	{
+		StartAttackTimer();
+	}
 }
 
 void AEnemy::BeginPlay()
@@ -324,7 +328,6 @@ AActor* AEnemy::ChoosePatrolTarget()
 	}
 
 	const int32 NumPatrolTargets = ValidTargets.Num();
-	UE_LOG(LogTemp, Warning, TEXT("%d"), NumPatrolTargets)
 		if (NumPatrolTargets > 0)
 		{
 			const int32 Select = FMath::RandRange(0, NumPatrolTargets - 1);

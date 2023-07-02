@@ -25,6 +25,7 @@ public:
 	void PlayEquipSound();
 	void AttachMeshToSocket(USceneComponent* InParent, FName InSocketName);
 	
+	UPROPERTY(VisibleAnywhere)
 	TArray<AActor*> IgnoreActors;
 protected:
 	UFUNCTION()

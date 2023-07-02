@@ -169,6 +169,8 @@ void ABaseCharacter::DirectionalHitReact(const FVector& ImpactPoint)
 
 	const FVector NomalVector = FVector::CrossProduct(Forward, ToHit).GetSafeNormal();
 
+
+
 	if (NomalVector.Z < 0)
 	{
 		Theta *= -1.f;
