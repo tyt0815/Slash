@@ -85,7 +85,7 @@ void AEnemy::GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter)
 	SetWeaponCollisionEnable(ECollisionEnabled::NoCollision);
 
 	StopAttackMontage();
-	if (isInsideAttackRadius())
+	if (isInsideAttackRadius() && isAlive())
 	{
 		StartAttackTimer();
 	}

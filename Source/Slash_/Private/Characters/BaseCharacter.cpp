@@ -54,6 +54,10 @@ void ABaseCharacter::Die()
 {
 	Tags.Add(FName("Dead"));
 	PlayDeathMontage();
+
+
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 }
 
 int32 ABaseCharacter::PlayAttackMontage()
@@ -237,7 +241,7 @@ void ABaseCharacter::SetWeaponCollisionEnable(ECollisionEnabled::Type CollisionE
 {
 	if (EquippedWeapon && EquippedWeapon->GetWeaponBox())
 	{
-		EquippedWeapon->GetWeaponBox()->SetCollisionEnabled(CollisionEnabled);
 		EquippedWeapon->IgnoreActors.Empty();
+		EquippedWeapon->GetWeaponBox()->SetCollisionEnabled(CollisionEnabled);
 	}
 }
